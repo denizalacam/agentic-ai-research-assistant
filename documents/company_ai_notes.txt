@@ -1,0 +1,9 @@
+Agentic AI systems use large language models to reason, plan, and interact with tools. 
+In enterprise settings, they can assist with research, document analysis, report generation, 
+data exploration, and workflow automation.
+
+Retrieval-Augmented Generation, or RAG, improves LLM applications by allowing the model 
+to answer questions using external documents instead of relying only on its training data.
+
+Tool calling allows an AI system to use external functions such as calculators, search tools, 
+databases, APIs, and file readers.
