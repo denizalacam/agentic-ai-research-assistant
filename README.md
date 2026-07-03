@@ -173,31 +173,6 @@ This repository is under active development. Each version introduces additional 
 
 ---
 
-## Planned Features
-
-### Version 2
-
-* PubMed integration
-* Literature review generation
-* Tool executor
-* Improved reasoning workflow
-
-### Version 3
-
-* Embeddings
-* ChromaDB
-* Semantic search
-* PDF ingestion
-
-### Version 4
-
-* Multi-tool planning
-* Conversation memory
-* Streaming responses
-* Evaluation framework
-
----
-
 ## Technologies
 
 * Python
