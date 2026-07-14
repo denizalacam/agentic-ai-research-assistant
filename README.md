@@ -1,139 +1,261 @@
 # Agentic AI Research Assistant
 
-Agentic AI Research Assistant is a modular AI software system that demonstrates how large language models, reasoning agents, and external tools can be orchestrated to solve research tasks. The project is built with Python and the OpenAI Responses API and is designed to evolve from a simple local RAG system into a production-style multi-agent research platform.
-
-Version 1 focuses on local document retrieval and tool-assisted reasoning. Future versions will expand the system with semantic search, PubMed integration, vector databases, and multi-tool orchestration.
-
----
-
-## Motivation
-
-Modern AI applications require more than a single LLM call. They often combine reasoning, external tools, retrieval systems, and modular software architecture.
-
-This project explores those concepts by incrementally building an extensible agentic AI research assistant.
+> 🚀 **Current Release: Version 2.0**
+>
+> Agentic AI Research Assistant is a modular AI research platform that combines **Large Language Models (LLMs), Retrieval-Augmented Generation (RAG), web search, PubMed integration, and agentic AI workflows** to automate scientific research tasks.
+>
+> Version 2 introduces end-to-end biomedical research workflows, including automated literature retrieval, multi-paper scientific synthesis, structured literature review generation, and the initial migration to LangGraph for workflow orchestration.
 
 ---
 
-## Learning Objectives
+# Version 2 Highlights
 
-This project is designed to demonstrate and explore:
+### New in Version 2
 
-- Agentic AI workflows
-- Large Language Models (LLMs)
-- Retrieval-Augmented Generation (RAG)
-- Tool selection and orchestration
-- Software architecture for AI applications
-- Object-oriented design in Python
-
----
-
-## Current Capabilities
-
-* OpenAI Responses API integration
-* Modular agent architecture
-* ReasoningAgent for tool selection
-* ResearchAgent for workflow coordination
-* Calculator tool
-* Local document search
-* Basic Retrieval-Augmented Generation (RAG)
-* Environment-based configuration using `.env`
-* Clean, extensible project structure
+- ✅ Intelligent planner-based tool selection
+- ✅ Local document search (RAG)
+- ✅ Real-time web search
+- ✅ PubMed integration
+- ✅ Automatic PubMed query generation
+- ✅ Configurable number of retrieved papers
+- ✅ Multi-paper scientific synthesis
+- ✅ Automated literature review generation
+- ✅ Initial LangGraph workflow orchestration
+- ✅ Modular architecture for future expansion
 
 ---
 
-## Project Architecture
+# Example Workflow
 
-```
-                    User
-                      │
-                      ▼
-              ReasoningAgent
-                      │
-         Chooses the appropriate tool
-                      │
-        ┌─────────────┴─────────────┐
-        ▼                           ▼
- Calculator Tool          Document Search Tool
-        │                           │
-        └─────────────┬─────────────┘
-                      ▼
-               ResearchAgent
-                      │
-                      ▼
-               Final Response
+## Example Workflow
+
+```text
+                              User Question
+                                     │
+                                     ▼
+                              Planner Agent
+                                     │
+                                     ▼
+                          Select Appropriate Workflow
+                                     │
+        ┌──────────────┬─────────────┼─────────────┬──────────────┐
+        │              │             │             │              │
+        ▼              ▼             ▼             ▼              ▼
+   Calculator     Local Search   Web Search   PubMed Search   General LLM
+                       │             │             │
+                       │             │             ▼
+                       │             │       Retrieve Papers
+                       │             │             │
+                       │             │             ▼
+                       │             │      Scientific Synthesis
+                       │             │
+                       └─────────────┴─────────────┬──────────────┘
+                                                 │
+                                                 ▼
+                                          Final Response
 ```
 
+For literature-review requests, the PubMed branch continues through an additional generation step:
+
+```text
+User Request
+     │
+     ▼
+Planner Agent
+     │
+     ▼
+Literature Review Workflow
+     │
+     ▼
+Generate PubMed Query
+     │
+     ▼
+Retrieve Requested Number of Papers
+     │
+     ▼
+Analyze Titles and Abstracts
+     │
+     ▼
+Synthesize Themes, Methods, Datasets, and Limitations
+     │
+     ▼
+Generate Structured Literature Review
+     │
+     ▼
+Final Response
+```
+
 ---
 
-## Technologies
+# Example
 
-- Python
-- OpenAI Responses API
-- python-dotenv
-- Rich
-- Object-Oriented Programming (OOP)
-- Retrieval-Augmented Generation (RAG)
-- Modular AI Architecture
+### User Question
+
+```
+Write a literature review using 15 recent PubMed papers about multimodal AI for Alzheimer's disease.
+```
+
+### The assistant automatically
+
+- Chooses the PubMed workflow
+- Generates an optimized PubMed query
+- Retrieves the requested number of recent papers
+- Reads titles and abstracts
+- Synthesizes findings across multiple studies
+- Produces a structured literature review
+- Includes references using PubMed IDs (PMIDs)
 
 ---
 
-## Project Structure
+# Features
+
+## Intelligent Planner
+
+The assistant automatically determines the best workflow for each user request.
+
+Supported workflows include
+
+- Calculator
+- Local Document Search (RAG)
+- Web Search
+- PubMed Search
+- Literature Review Generation
+- General LLM Reasoning
+
+---
+
+## Local Document Search (RAG)
+
+Searches user-provided documents to answer questions grounded in local knowledge.
+
+Example
+
+```
+What do my notes say about Retrieval-Augmented Generation?
+```
+
+---
+
+## Web Search
+
+Retrieves current information for topics requiring up-to-date knowledge.
+
+Example
+
+```
+What are the latest generative AI applications in healthcare?
+```
+
+---
+
+## PubMed Search
+
+Automatically converts natural language questions into optimized PubMed searches.
+
+Retrieves
+
+- Titles
+- Journals
+- Publication Years
+- PMIDs
+- Abstracts
+
+Supports configurable retrieval counts.
+
+Example
+
+```
+Find 20 recent PubMed papers about Alzheimer's disease and transformer models.
+```
+
+---
+
+## Literature Review Generation
+
+Automatically generates structured literature reviews directly from retrieved PubMed papers.
+
+Generated sections include
+
+- Introduction
+- Recent Advances
+- Common Methods
+- Datasets and Modalities
+- Limitations
+- Future Directions
+- References (PMIDs)
+
+---
+
+# Project Architecture
 
 ```
 agentic-ai-research-assistant/
-│
-├── app.py
-├── config.py
-├── requirements.txt
-├── README.md
-├── .env.example
-├── .gitignore
-│
+
 ├── agents/
 │   ├── reasoning_agent.py
 │   └── research_agent.py
 │
+├── graph/
+│   ├── state.py
+│   ├── nodes.py
+│   └── workflow.py
+│
 ├── tools/
 │   ├── calculator.py
 │   ├── document_search.py
+│   ├── pubmed_search.py
+│   ├── web_search_tool.py
 │   └── tool_types.py
 │
 ├── documents/
-├── screenshots/
-└── tests/
+├── tests/
+│
+├── app.py
+├── config.py
+├── requirements.txt
+└── README.md
 ```
 
 ---
 
-## Installation
+# Technologies
 
-Clone the repository:
+- Python
+- OpenAI Responses API
+- LangGraph
+- Agentic AI
+- Retrieval-Augmented Generation (RAG)
+- PubMed E-Utilities API
+- DuckDuckGo Search
+- Prompt Engineering
+- Object-Oriented Programming
+- Modular Software Architecture
+
+---
+
+# Installation
+
+Clone the repository
 
 ```bash
-git clone https://github.com/<your-username>/agentic-ai-research-assistant.git
+git clone https://github.com/denizalacam/agentic-ai-research-assistant.git
+
 cd agentic-ai-research-assistant
 ```
 
-Create and activate a Conda environment:
-
-```bash
-conda create -n agentic-ai python=3.12
-conda activate agentic-ai
-```
-
-Install the required packages:
+Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-Create a `.env` file:
+Create a `.env` file
 
 ```
 OPENAI_API_KEY=your_api_key_here
 ```
 
-Run the application:
+Run the assistant
 
 ```bash
 python app.py
@@ -141,70 +263,85 @@ python app.py
 
 ---
 
-## Example
-
-**Question**
+# Example Questions
 
 ```
-What do my notes say about RAG?
+What is 15% of 280?
 ```
 
-**Answer**
+```
+What do my local documents say about Retrieval-Augmented Generation?
+```
 
 ```
-Retrieval-Augmented Generation (RAG) improves LLM applications by allowing the model to answer questions using external documents instead of relying only on its training data.
+What are the latest generative AI applications in healthcare?
+```
+
+```
+Find 10 recent PubMed papers about Alzheimer's disease.
+```
+
+```
+Find 25 recent PubMed papers about multimodal foundation models.
+```
+
+```
+Write a literature review using 15 recent PubMed papers about multimodal AI for Alzheimer's disease.
 ```
 
 ---
 
-## Project Status
+# Release History
 
-This repository is under active development. Each version introduces additional agentic AI capabilities while preserving a modular architecture.
+## 🚀 Version 2.0 (Current)
 
----
+### Added
 
-## Current Version (v1.0)
-
-* Local document retrieval
-* Calculator tool
-* LLM-powered reasoning agent
-* Basic RAG workflow
-* Modular software architecture
-
----
-
-## Planned Features
-
-### Version 2
-
-* PubMed integration
-* Literature review generation
-* Tool executor
-* Improved reasoning workflow
-
-### Version 3
-
-* Embeddings
-* ChromaDB
-* Semantic search
-* PDF ingestion
-
-### Version 4
-
-* Multi-tool planning
-* Conversation memory
-* Streaming responses
-* Evaluation framework
+- Planner-based tool selection
+- Local RAG
+- Web Search
+- PubMed Search
+- Automatic PubMed query generation
+- Configurable paper retrieval
+- Multi-paper scientific synthesis
+- Literature review generation
+- Initial LangGraph integration
+- Modular workflow architecture
 
 ---
 
-## Technologies
+## Version 1.0
 
-* Python
-* OpenAI Responses API
-* python-dotenv
-* Rich
-* Object-Oriented Programming (OOP)
+### Added
+
+- ResearchAgent
+- ReasoningAgent
+- Calculator
+- Local document search
+- Basic Retrieval-Augmented Generation (RAG)
+- OpenAI Responses API integration
+
+---
+
+# Roadmap
+
+## Version 3
+
+- Complete LangGraph orchestration
+- Parallel workflow execution
+- Multi-step research pipelines
+- Improved workflow state management
+
+## Version 4
+
+- PDF ingestion
+- ChromaDB integration
+- Embedding-based semantic search
+- Conversation memory
+- Citation export
+- Markdown export
+- PDF export
+
 
 ---
 
