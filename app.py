@@ -1,15 +1,21 @@
-from rich.console import Console
-from agents.research_agent import ResearchAgent
+from graph.workflow import build_graph
 
-# Create a colorful console
-console = Console()
-agent = ResearchAgent()
 
-console.print("[bold green]🚀 Agentic AI Research Assistant[/bold green]\n")
+def main():
+    print("🚀 Agentic AI Research Assistant\n")
 
-question = input("Ask a research question: ")
+    question = input("Ask a research question: ")
 
-answer = agent.answer(question)
+    graph = build_graph()
+    result = graph.invoke(
+        {
+            "question": question,
+        }
+    )
 
-console.print("\n[bold blue]Answer:[/bold blue]\n")
-console.print(answer)
+    print("\nAnswer:\n")
+    print(result["final_answer"])
+
+
+if __name__ == "__main__":
+    main()

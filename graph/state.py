@@ -8,5 +8,7 @@ class ResearchState(TypedDict, total=False):
 
     question: str
     selected_tool: str
+    max_results: int
     retrieved_context: str
     final_answer: str
+    

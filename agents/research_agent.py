@@ -129,7 +129,11 @@ Answer naturally and concisely.
 
         return final_response.output_text
 
-    def _answer_with_pubmed_search(self, question: str) -> str:
+    def _answer_with_pubmed_search(
+    self,
+    question: str,
+    max_results: int = 10,
+    ) -> str:
         pubmed_query_prompt = f"""
 Convert this user question into a concise PubMed search query.
 
@@ -146,7 +150,7 @@ Return only the PubMed search query. No explanation.
 
         pubmed_query = query_response.output_text.strip()
 
-        context = search_pubmed(pubmed_query, max_results=10)
+        context = search_pubmed(pubmed_query, max_results=max_results)
 
         print("\n========== PUBMED SEARCH ==========")
         print(context)
@@ -182,7 +186,11 @@ Mention PMIDs when referring to specific papers.
 
         return final_response.output_text
     
-    def _answer_with_literature_review(self, question: str) -> str:
+    def _answer_with_literature_review(
+    self,
+    question: str,
+    max_results: int = 10,
+    ) -> str:
         pubmed_query_prompt = f"""
 Convert this user request into a concise PubMed search query.
 
@@ -198,7 +206,7 @@ Return only the PubMed search query. No explanation.
         )
 
         pubmed_query = query_response.output_text.strip()
-        context = search_pubmed(pubmed_query, max_results=10)
+        context = search_pubmed(pubmed_query, max_results=max_results)
 
         print("\n========== LITERATURE REVIEW PUBMED SEARCH ==========")
         print(f"PubMed query: {pubmed_query}")
