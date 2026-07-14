@@ -208,6 +208,13 @@ This repository is under active development. Each version introduces additional 
 
 ---
 
-## License
+# Author
 
-The software is released under the MIT license.
+**Deniz Alacam**
+
+
+---
+
+# License
+
+This project is released under the MIT License.
